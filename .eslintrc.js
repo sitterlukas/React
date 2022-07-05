@@ -39,5 +39,10 @@ module.exports = {
     'function-paren-newline': 'off',
     'implicit-arrow-linebreak': 'off',
     'react/jsx-one-expression-per-line': 'off',
+    'arrow-body-style': 'off',
+    'operator-linebreak': 'off',
+    'import/prefer-default-export': 'off',
+    'no-confusing-arrow': 'off',
+    'react/jsx-no-constructed-context-values': 'off',
   },
 };
