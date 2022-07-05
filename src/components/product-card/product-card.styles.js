@@ -1,16 +1,17 @@
-.product-card-container {
+import styled from 'styled-components';
+
+export const ProductCartContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  height: 35rem;
+  height: 25rem;
   align-items: center;
   overflow: hidden;
   position: relative;
-  border-radius: 2rem 2rem 0 0;
 
   img {
     width: 100%;
-    height: 95%;
+    height: 100%;
     object-fit: cover;
     margin-bottom: 0.5rem;
   }
@@ -19,7 +20,7 @@
     width: 80%;
     opacity: 0.7;
     position: absolute;
-    top: 25rem;
+    top: 13rem;
     font-size: 1.2rem;
     display: none;
   }
@@ -51,4 +52,4 @@
       width: 10%;
     }
   }
-}
+`;

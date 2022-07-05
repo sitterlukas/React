@@ -1,7 +1,13 @@
-import React from "react";
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 
-import Directory from "../../components/directory/directory.component";
+import Directory from '../../components/directory/directory.component';
 
-const Home = () => <Directory />;
+const Home = () => (
+  <div>
+    <Directory />
+    <Outlet />
+  </div>
+);
 
 export default Home;
