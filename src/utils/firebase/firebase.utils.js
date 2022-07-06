@@ -19,6 +19,7 @@ import {
   query,
   getDocs,
 } from 'firebase/firestore';
+import async from 'async';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBhaONaE5p2TDbRv7yW7lAF4v_YeDK-PKQ',
@@ -59,8 +60,8 @@ export const addCollectionAndDocuments = async (
   console.log('done');
 };
 
-export const getCategoriesAndDocuments = async () => {
-  const collectionRef = collection(db, 'categories');
+export const getCategoriesAndDocuments = async (path) => {
+  const collectionRef = collection(db, path);
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);
@@ -98,7 +99,7 @@ export const createUserDocumentFromAuth = async (
     }
   }
 
-  return userDocRef;
+  return userSnapshot;
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
@@ -118,4 +119,17 @@ export const signOutUser = async () => {
 
 export const onAuthStateChangedListener = (callback) => {
   onAuthStateChanged(auth, callback);
+};
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
 };

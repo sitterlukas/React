@@ -1,14 +1,14 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import FormInput from '../form-input/form-input.component';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 
+import { SignInContainer, ButtonsContainer } from './sign-in-form.styles';
 import {
-  signInWithGooglePopup,
-  signInAuthUserWithEmailAndPassword,
-} from '../../utils/firebase/firebase.utils';
-
-import { SignUpContainer, ButtonContainer } from './sign-in-form.styles';
+  googleSignInStart,
+  emailSignInStart,
+} from '../../store/user/user.action';
 
 const defaultFormFields = {
   email: '',
@@ -16,6 +16,7 @@ const defaultFormFields = {
 };
 
 const SignInForm = () => {
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
@@ -23,31 +24,18 @@ const SignInForm = () => {
     setFormFields(defaultFormFields);
   };
 
-  const singInWithGoogle = async () => {
-    await signInWithGooglePopup();
+  const signInWithGoogle = async () => {
+    dispatch(googleSignInStart());
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const { user } = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-
+      dispatch(emailSignInStart(email, password));
       resetFormFields();
     } catch (error) {
-      switch (error.code) {
-        case 'auth/wrong-password':
-          alert('wrong credentials');
-          break;
-        case 'auth/user-not-found':
-          alert('no account was found');
-          break;
-        default:
-          console.log(error);
-      }
+      console.log('user sign in failed', error);
     }
   };
 
@@ -56,8 +44,9 @@ const SignInForm = () => {
 
     setFormFields({ ...formFields, [name]: value });
   };
+
   return (
-    <SignUpContainer>
+    <SignInContainer>
       <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
@@ -69,6 +58,7 @@ const SignInForm = () => {
           name='email'
           value={email}
         />
+
         <FormInput
           label='Password'
           type='password'
@@ -77,18 +67,18 @@ const SignInForm = () => {
           name='password'
           value={password}
         />
-        <ButtonContainer>
-          <Button type='submit'>Sign in</Button>
+        <ButtonsContainer>
+          <Button type='submit'>Sign In</Button>
           <Button
-            type='button'
             buttonType={BUTTON_TYPE_CLASSES.google}
-            onClick={singInWithGoogle}
+            type='button'
+            onClick={signInWithGoogle}
           >
-            Google sign in
+            Sign In With Google
           </Button>
-        </ButtonContainer>
+        </ButtonsContainer>
       </form>
-    </SignUpContainer>
+    </SignInContainer>
   );
 };
 
