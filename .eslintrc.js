@@ -44,5 +44,8 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-confusing-arrow': 'off',
     'react/jsx-no-constructed-context-values': 'off',
+    'react/require-default-props': 'off',
+    'no-shadow': 'off',
+    'react/no-unescaped-entities': 'off',
   },
 };
