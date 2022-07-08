@@ -47,5 +47,6 @@ module.exports = {
     'react/require-default-props': 'off',
     'no-shadow': 'off',
     'react/no-unescaped-entities': 'off',
+    'no-lonely-if': 'off',
   },
 };

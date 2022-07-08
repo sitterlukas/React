@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -26,7 +25,7 @@ const Navigation = () => {
   const signOutUser = () => dispatch(signOutStart());
 
   return (
-    <Fragment>
+    <>
       <NavigationContainer>
         <LogoContainer to='/'>
           <CrwnLogo className='logo' />
@@ -46,7 +45,7 @@ const Navigation = () => {
         {isCartOpen && <CartDropdown />}
       </NavigationContainer>
       <Outlet />
-    </Fragment>
+    </>
   );
 };
 
